@@ -1,0 +1,32 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "unit-suffix-remover"
+version = "0.0.0"
+description = "Stop, disable and remove systemd units carrying an exact suffix."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Kevin Veen-Birkenbach", email = "kevin@veen.world" }]
+keywords = ["systemd", "units", "cleanup", "cli"]
+dependencies = []
+
+[project.urls]
+Homepage = "https://www.veen.world/"
+Repository = "https://github.com/kevinveenbirkenbach/unit-suffix-remover"
+
+[project.scripts]
+unsure = "unit_suffix_remover.cli:main"
+usure = "unit_suffix_remover.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/unit_suffix_remover"]
+
+[tool.ruff]
+line-length = 88
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+ignore = ["E501"]

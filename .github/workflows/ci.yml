@@ -1,0 +1,80 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test-and-lint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install package and tooling
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --upgrade pip
+          python -m pip install -e .
+          python -m pip install ruff
+
+      - name: Ruff (lint)
+        shell: bash
+        run: |
+          set -euo pipefail
+          ruff check .
+
+      - name: Ruff (format check)
+        shell: bash
+        run: |
+          set -euo pipefail
+          ruff format --check .
+
+      - name: Unit tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          make test-unit
+
+      - name: Integration tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          make test-integration
+
+  docs:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Markdown and mermaid lint
+        shell: bash
+        run: |
+          set -euo pipefail
+          make lint-docs
+
+  e2e:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: End-to-end tests in a container
+        shell: bash
+        run: |
+          set -euo pipefail
+          make test-e2e
