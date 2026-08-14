@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "unit-suffix-remover"
-version = "1.0.0"
+version = "1.0.1"
 description = "Stop, disable and remove systemd units carrying an exact suffix."
 readme = "README.md"
 requires-python = ">=3.10"
