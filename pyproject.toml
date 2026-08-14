@@ -23,6 +23,10 @@ usure = "unit_suffix_remover.cli:main"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/unit_suffix_remover"]
+core-metadata-version = "2.4"
+
+[tool.hatch.build.targets.sdist]
+core-metadata-version = "2.4"
 
 [tool.ruff]
 line-length = 88
